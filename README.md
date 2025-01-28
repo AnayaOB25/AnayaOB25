@@ -6,7 +6,7 @@
 - 👯 I’m looking to collaborate on beginner web dev projects
 - 🤔 I’m looking for help with getting internships
 - 💬 Ask me about tech
-- 📫 arobanno@asu.edu
+- 📫 arobanno@asu.edu https://www.linkedin.com/in/anayaobannon/
 - 😄 Pronouns: she/her
 - ⚡ Fun fact: I have two dogs (pitbull rottweiler mixes)
 
