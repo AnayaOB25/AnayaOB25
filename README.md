@@ -1,16 +1,13 @@
 ## Hi there 👋
+![Picture of Anaya](IMG_9402.jpeg)
 
-<!--
-**AnayaOB25/AnayaOB25** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+- 🔭 I’m currently working on getting certificates to put on my resume
+- 🌱 I’m currently learning HTML and CSS 
+- 👯 I’m looking to collaborate on beginner web dev projects
+- 🤔 I’m looking for help with getting internships
+- 💬 Ask me about tech
+- 📫 arobanno@asu.edu
+- 😄 Pronouns: she/her
+- ⚡ Fun fact: I have two dogs (pitbull rottweiler mixes)
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+I attend Arizona State University, where I study graphic information technology (full-stack web development). I am currently in my sophomore year. After college, I hope to get my dream job working for Nike as a coder there.
