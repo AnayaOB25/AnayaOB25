@@ -8,6 +8,6 @@
 - 💬 Ask me about tech
 - 📫 arobanno@asu.edu https://www.linkedin.com/in/anayaobannon/
 - 😄 Pronouns: she/her
-- ⚡ Fun fact: I have two dogs (pitbull rottweiler mixes)
+- ⚡ Fun fact: I have a cocker spaniel
 
-I attend Arizona State University, where I study graphic information technology (full-stack web development). I am currently in my sophomore year. After college, I hope to get my dream job working for Nike as a coder there.
+I attend Arizona State University, where I study graphic information technology (full-stack web development). I am currently in my senior year. After college, I hope to get a great opportunity show my work with passionate team.
