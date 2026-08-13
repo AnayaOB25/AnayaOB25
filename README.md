@@ -1,5 +1,4 @@
 ## Hi there 👋
-<img src="IMG_9402.jpeg" alt="Anaya">
 
 - 🔭 I’m currently working on getting certificates to put on my resume
 - 🌱 I’m currently learning HTML and CSS 
