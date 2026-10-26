@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Landing Page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <button id="theme-toggle">🌙</button>
+    
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                <h2>NIKE</h2>
+            </div>
+
+            <ul class="nav-links">
+
+                <li><a href="#home">Home</a></li>
+                <li><a href="#featured">Featured</a></li>
+                <li><a href="#categories">categories</a></li>
+                <li><a href="#contact">contact</a></li>
+
+            </ul>
+
+            <div class="icons">
+                
+                <button>
+                    🔍
+                </button>
+
+                <button  id="cart-button">
+                    🛒
+                    <span id="cart-count">0</span>
+                </button>
+
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="home" class="hero">
+
+            <div class="hero-text">
+
+                <label>NEW ARRIVALS</label>
+                <h1>RUN <span>BEYOND</span> LIMITS</h1>
+                <p>Discover the latest collection designed for speed, comfort, and everyday performance.</p>
+
+                <div class="hero-buttons">
+
+                    <button class="shop-btn">Shop Now</button>
+                    <button class="learn-btn">Learn More</button>
+
+                </div>
+            </div>
+
+            <div class="hero-image">
+
+                <img src="images/shoe.png" alt="Running shoe">
+
+            </div>
+        </section>
+
+        <section id="featured" class="featured">
+            <h2>Featured Products</h2>
+
+            <div class="product-grid">
+
+                <article class="product-card">
+
+                    <span class="badge">New</span>
+                    <img src="images/shoe1.png" alt="Nike Air Zoom">
+                    <h3>Nike Air Zoom</h3>
+                    <p>Running Shoe</p>
+                    <span class="price">$160</span>
+                    <button>Add to Cart</button>
+
+                </article>
+
+                <article class="product-card">
+
+                    <img src="images/shoe2.png" alt="Nike Pegasus">
+                    <h3>Nike Pegasus</h3>
+                    <p>Daily Trainer</p>
+                    <span class="price">$140</span>
+                    <button>Add to Cart</button>
+
+                </article>
+
+                <article class="product-card">
+
+                    <img src="images/shoe3.png" alt="Nike Revolution">
+                    <h3>Nike Revolution</h3>
+                    <p>Everyday Comfort</p>
+                    <span class="price">$95</span>
+                    <button>Add to Cart</button>
+                    
+                </article>
+
+                <article class="product-card">
+
+                    <img src="images/shoe4.png" alt="Nike Invincible">
+                    <h3>Nike Invincible</h3>
+                    <p>Maximum Cushion</p>
+                    <span class="price">$180</span>
+                    <button>Add to Cart</button>
+
+                </article>
+                
+            </div>
+        </section>
+
+        <section id="categories" class="categories">
+
+            <h2>Shop By Category</h2>
+
+            <div class="category-grid">
+
+                <div class="category-card">
+                    <img src="images/running.jpg" alt="Running shoes">
+                    <h3>Running</h3>
+                    <button>Shop Running</button>
+                    <article class="product-card" data-category="running"></article>
+                </div>
+
+                <div class="category-card">
+                    <img src="images/basketball.jpg" alt="Basketball shoes">
+                    <h3>Basketball</h3>
+                    <button>Shop Basketball</button>
+                </div>
+
+                <div class="category-card">
+                    <img src="images/lifestyle.jpg" alt="Lifestyle shoes">
+                    <h3>Lifestyle</h3>
+                    <button>Shop Lifestyle</button>
+                </div>
+
+                <div class="category-card">
+                    <img src="images/training.jpg" alt="Training shoes">
+                    <h3>Training</h3>
+                    <button>Shop Training</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        
+        <div class="footer-content">
+
+            <h2>NIKE</h2>
+            <p>Designed as a front-end portfolio project.</p>
+
+            <div class="socials">
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">LinkedIn</a>
+            </div>
+
+        </div>
+        
+    </footer>
+
+    <aside class="cart-sidebar">
+
+        <div class="cart-header">
+
+            <h2>Your Cart</h2>
+            <button id="close-cart">✖</button>
+
+        </div>
+
+        <div id="cart-items">
+            <p>Your cart is empty.</p>
+        </div>
+
+    </aside>
+   
+    <script src="script.js"></script>
+
+</body>
+</html>
