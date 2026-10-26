@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPENT | Student Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Main application layout-->
+     <div class="app-container">
+
+        <!-- sidebar navigation-->
+         <aside class="sidebar">
+
+            <div class="logo">
+                <h2>SPENT</h2>
+            </div>
+
+            <nav class="navigation">
+                <a href="dashboard" class="nav-link active">
+                    Dashboard
+                </a>
+
+                <a href="add-expense" class="nav-link">
+                    Add Expense
+                </a>
+
+                <a href="spending" class="nav-link">
+                    Spending
+                </a>
+
+                <a href="savings" class="nav-link">
+                    Savings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>SPENT</p>
+                <p>Student Finance Tracker</p>
+            </div>
+
+         </aside>
+
+         <!--Main dashboard content-->
+         <main class="main-content" id="dashboard">
+
+            <!--Top header-->
+            <header class="top-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Here's an overview of your finances.</p>
+                </div>
+
+                <div class="user-profile">
+                    <span class="user-avatar">U</span>
+                    <span>User</span>
+                </div>
+            </header>
+
+            <!--Welcome section-->
+            <section class="welcome-section">
+                <h2>Welcome to SPENT</h2>
+                <p>Let's get your finances organized.</p>
+            </section>
+
+
+            <!--Financial summary cards-->
+            <section class="summary-cards">
+
+                <article class="summary-card">
+                    <p>Monthly Income</p>
+                    <h2 id="monthly-income">$0.00</h2>
+                    <span>Your income this month</span>
+                </article>
+
+                <article class="summary-card">
+                    <p>Total Spent</p>
+                    <h2 id="total-spent">$0.00</h2>
+                    <span>Your expenses this month</span>
+                </article>
+
+                <article class="summary-card">
+                    <p>Remaining Budget</p>
+                    <h2 id="remaining-budget">$0.00</h2>
+                    <span>Money left this month</span>
+                </article>
+
+            </section>
+
+            <!--Spending overview-->
+            <section class="dashboard-grid">
+
+                <article class="dashboard-card spending-overview">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Spending Overview</h2>
+                            <p>See where your money goes.</p>
+                        </div>
+
+                        <select id="spending-period" aria-label="Spending period">
+                            <option value="month"> This Month</option>
+                            <option value="week">This Week</option>
+                        </select>
+                    </div>
+
+                    <div id="spending-chart" class="chart-placeholder">
+                        <p>Your spending chart will appear here.</p>
+                    </div>
+                </article>
+
+                <!--Budget progress-->
+                <article class="dashboard-card budget-overview">
+                    <h2>Budget Progress</h2>
+                    <p>Keep track of your spending limits.</p>
+
+                    <div class="budget-progress-item">
+                        <div class="progress-label">
+                            <span>Food</span>
+                            <span>No budget set</span>
+                        </div>
+
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="budget-progress-item">
+                        <div class="progress-label">
+                            <span>Transportation</span>
+                            <span>No budget set</span>
+                        </div>
+
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="budget-progress-item">
+                        <div class="progress-label">
+                            <span>Entertainment</span>
+                            <span>No budget set</span>
+                        </div>
+
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!--Recent expenses-->
+            <section class="dashboard-card recent-expenses">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Expenses</h2>
+                        <p>Keep an eye on your latest purchases</p>
+                    </div>
+
+                    <a href="#spending" class="text-link">View All</a>
+                </div>
+
+                <div class="expense-table-wrapper">
+                    <table class="expense-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Expense</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="expense-list">
+                            <tr>
+                                <td colspan="4" class="empty-state">
+                                    No expenses yet. Add your first expense!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <a href="#add-expense" class="primary-button">
+                    + Add Expense
+                </a>
+
+            </section>
+
+         </main>
+     </div>
+
+     <script src="script.js"></script>
+
+</body>
+</html>
+/*SPENT STARTER DATA*/
+
+//Monthly income shown on the dashboard
+let monthlyIncome = 0;
+
+const budget = {};
+
+let expenses = [];
+
+try{
+    const savedExpenses = localStorage.getItem("SPENTExpenses")
+
+    if(savedExpenses){
+        expenses = JSON.parse(savedExpenses);
+
+        if (!Array.isArray(expenses)){
+            expenses = [];
+        }
+    }
+} catch (error){
+    console.error("Could not load saved expenses:", error);
+    expenses = [];
+}
+
+/*select dashboard elements*/
+const incomeElement = document.getElementById("monthly-income");
+const totalSpentElement = document.getElementById("total-spent");
+const remainingBudgetElement = document.getElementById("remaining-budget");
+const expensesList = document.getElementById("expense-list");
+
+const addExpenseButton = document.querySelector(
+    ".recent-expenses .primary-button"
+);
+
+/*format money*/
+function formatMoney(amount){
+    return amount.toLocaleString("en-US", {
+        style:"currency",
+        currency:"USD"
+    });
+}
+
+/*update dashboard totals*/
+function updateDashboard(){
+    const totalSpent = expenses.reduce((total, expense) => {
+        return total + expense.amount;
+    }, 0);
+
+    const remainingBudget = monthlyIncome - totalSpent;
+
+    incomeElement.textContent = formatMoney(monthlyIncome);
+    totalSpentElement.textContent = formatMoney(totalSpent);
+    remainingBudgetElement.textContent = formatMoney(remainingBudget);
+
+    updateBudgetProgress();
+}
+
+/*Update budget progress*/
+function updateBudgetProgress() {
+    const budgetItems = document.querySelectorAll(
+        ".budget-progress-item"
+    );
+
+    budgetItems.forEach((item) => {
+        const category = item.querySelector(
+            ".progress-label span:first-child"
+        ).textContent.trim();
+
+        const amountLabel = item.querySelector(
+            ".progress-label span:last-child"
+        );
+
+        const progressFill = item.querySelector(".progress-fill");
+
+        const limit = budgets[category];
+
+        if (limit === undefined) {
+            return;
+        }
+
+        const categorySpent = expenses
+            .filter((expense) => expense.category === category)
+            .reduce((total, expense) => total + expense.amount, 0);
+
+        const percentage = Math.min(
+            (categorySpent / limit) * 100,
+            100
+        );
+
+        amountLabel.textContent =
+            `${formatMoney(categorySpent)} / ${formatMoney(limit)}`;
+
+        progressFill.style.width = `${percentage}%`;
+    });
+}
+
+/*Display expenses in the table*/
+function renderExpenses(){
+    expensesList.innnerHTML = "";
+
+    if (expenses.length === 0) {
+        expenseList.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-state">
+                    No expenses yet. Add your first expense!
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    const newestExpenses = [...expenses].reverse();
+
+    newestExpenses.forEach((expense) => {
+        const row = document.createElement("tr");
+
+        const nameCell = document.createElement("td");
+        nameCell.textContent = expense.name;
+
+        const categoryCell = document.createElement("td");
+        categoryCell.textContent = expense.category;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = new Date(
+            `${expense.date}T12:00:00`
+        ).toLocaleDateString("en-US");
+
+        const amountCell = document.createElement("td");
+        amountCell.textContent = formatMoney(expense.amount);
+
+        row.append(
+            nameCell,
+            categoryCell,
+            dateCell,
+            amountCell
+        );
+
+        expenseList.appendChild(row);
+    });
+
+}
+
+function savedExpenses(){
+    localStorage.setItem(
+        "SPENTExpenses",
+        JSON.stringify(expenses)
+    );
+}
+
+/*Add a new expense*/
+function addExpense() {
+    
+    const name = prompt("What did you spend money on?");
+
+    if (name === null || name.trim() === "") {
+        return;
+    }
+
+    
+    const categoryChoice = prompt(
+        "Choose a category by entering its number:\n" +
+        "1. Food\n" +
+        "2. Transportation\n" +
+        "3. Entertainment\n" +
+        "4. Other"
+    );
+
+    if (categoryChoice === null) {
+        return;
+    }
+
+    const categories = {
+        "1": "Food",
+        "2": "Transportation",
+        "3": "Entertainment",
+        "4": "Other"
+    };
+
+    const category = categories[categoryChoice.trim()];
+
+    if (!category) {
+        alert("Please enter a valid category number.");
+        return;
+    }
+
+    
+    const amountInput = prompt(
+        "How much did you spend? Enter the amount in dollars:"
+    );
+
+    if (amountInput === null || amountInput.trim() === "") {
+        return;
+    }
+
+    const amount = Number(amountInput);
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+        alert("Please enter an amount greater than $0.");
+        return;
+    }
+
+    
+    const newExpense = {
+        name: name.trim(),
+        category: category,
+        amount: Math.round(amount * 100) / 100,
+        date: new Date().toLocaleDateString("en-CA")
+    };
+
+    
+    expenses.push(newExpense);
+
+    
+    saveExpenses();
+    renderExpenses();
+    updateDashboard();
+
+    alert("Expense added successfully!");
+}
+
+/*Connect the button*/
+addExpenseButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    addExpense();
+});
+
+/*Initialize the dashboard*/
+renderExpenses();
+updateDashboard();
+
+/* ========================================
+   1. BASIC PAGE SETTINGS
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    max-width: 100%;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    color: #222222;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+p {
+    color: #777777;
+    font-size: 14px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+select {
+    font: inherit;
+}
+
+
+/* ========================================
+   2. MAIN APPLICATION LAYOUT
+======================================== */
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+
+/* ========================================
+   3. SIDEBAR AND NAVIGATION
+======================================== */
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-right: 1px solid #dddddd;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    margin-bottom: 40px;
+}
+
+.logo h2 {
+    font-size: 22px;
+    letter-spacing: -0.5px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-link {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 8px;
+    color: #555555;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: #eeeeee;
+}
+
+.nav-link.active {
+    background-color: #e7e7e7;
+    color: #111111;
+    font-weight: bold;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 40px;
+    font-size: 12px;
+}
+
+.sidebar-footer p {
+    font-size: 12px;
+}
+
+
+/* ========================================
+   4. MAIN DASHBOARD CONTENT
+======================================== */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    width: 0;
+    padding: 35px;
+}
+
+
+/* ========================================
+   5. DASHBOARD HEADER AND PROFILE
+======================================== */
+
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.top-header > div:first-child {
+    min-width: 0;
+}
+
+.top-header h1 {
+    margin-bottom: 5px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ========================================
+   6. WELCOME SECTION
+======================================== */
+
+.welcome-section {
+    margin-bottom: 25px;
+}
+
+.welcome-section h2 {
+    margin-bottom: 5px;
+}
+
+
+/* ========================================
+   7. FINANCIAL SUMMARY CARDS
+======================================== */
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    min-width: 0;
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.summary-card p {
+    margin-bottom: 12px;
+}
+
+.summary-card h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.summary-card span {
+    font-size: 12px;
+    color: #888888;
+}
+
+
+/* ========================================
+   8. DASHBOARD PANELS
+======================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.dashboard-card {
+    width: 100%;
+    min-width: 0;
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.dashboard-card > h2 {
+    margin-bottom: 5px;
+}
+
+.dashboard-card > p {
+    margin-bottom: 24px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.section-heading > div {
+    min-width: 0;
+}
+
+.section-heading h2 {
+    margin-bottom: 5px;
+}
+
+.section-heading select {
+    max-width: 100%;
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 8px 10px;
+    color: #444444;
+    font-size: 12px;
+}
+
+
+/* ========================================
+   9. SPENDING CHART
+======================================== */
+
+.chart-placeholder {
+    width: 100%;
+    min-width: 0;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
+    border: 1px dashed #cccccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.chart-placeholder p {
+    color: #999999;
+}
+
+
+/* ========================================
+   10. BUDGET PROGRESS BARS
+======================================== */
+
+.budget-progress-item {
+    margin-bottom: 25px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.progress-label span:last-child {
+    color: #777777;
+    text-align: right;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background-color: #e9e9e9;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #555555;
+    border-radius: 20px;
+}
+
+
+/* ========================================
+   11. RECENT EXPENSES
+======================================== */
+
+.recent-expenses {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+
+/* The wrapper scrolls, not the entire page */
+
+.expense-table-wrapper {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.expense-table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.expense-table th {
+    background-color: #f7f7f7;
+    color: #666666;
+    font-weight: normal;
+    padding: 14px 12px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.expense-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.expense-table th:last-child,
+.expense-table td:last-child {
+    text-align: right;
+}
+
+.empty-state {
+    text-align: center !important;
+    color: #888888;
+    padding: 30px 12px !important;
+}
+
+.primary-button {
+    display: inline-block;
+    background-color: #222222;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.primary-button:hover {
+    background-color: #444444;
+}
+
+.text-link {
+    font-size: 13px;
+    text-decoration: underline;
+    color: #555555;
+}
+
+
+/* ========================================
+   12. TABLET LAYOUT
+======================================== */
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding: 25px 15px;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+
+    .summary-cards {
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 16px;
+    }
+
+    .summary-card h2 {
+        font-size: 22px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+
+/* ========================================
+   13. MOBILE LAYOUT
+======================================== */
+
+@media (max-width: 650px) {
+
+    /* Stack the sidebar above the dashboard */
+
+    .app-container {
+        flex-direction: column;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding: 18px;
+        border-right: none;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .logo {
+        margin-bottom: 18px;
+    }
+
+    .logo h2 {
+        font-size: 22px;
+    }
+
+    .navigation {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        min-width: 0;
+        gap: 6px;
+    }
+
+    .nav-link {
+        padding: 9px 10px;
+        font-size: 12px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+
+    /* Main content */
+
+    .main-content {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding: 20px 15px;
+    }
+
+
+    /* Header and user profile */
+
+    .top-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+
+    .top-header > div:first-child {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .top-header h1 {
+        font-size: 22px;
+        overflow-wrap: anywhere;
+    }
+
+    .top-header p {
+        overflow-wrap: anywhere;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+    }
+
+
+    /* Welcome section */
+
+    .welcome-section h2 {
+        font-size: 22px;
+    }
+
+
+    /* Stack the summary cards */
+
+    .summary-cards {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .summary-card {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .summary-card h2 {
+        font-size: 24px;
+    }
+
+
+    /* Stack the dashboard panels */
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .dashboard-card {
+        width: 100%;
+        min-width: 0;
+        padding: 18px;
+    }
+
+    .section-heading {
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .section-heading h2 {
+        font-size: 19px;
+    }
+
+    .section-heading select {
+        flex-shrink: 0;
+        padding: 7px;
+    }
+
+    .chart-placeholder {
+        min-height: 180px;
+    }
+
+
+    /* Keep the expense table inside its card */
+
+    .recent-expenses {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .expense-table-wrapper {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .expense-table {
+        width: 100%;
+        min-width: 500px;
+        margin-bottom: 20px;
+    }
+
+    .primary-button {
+        max-width: 100%;
+    }
+}
+
+
+/* ========================================
+   14. EXTRA SMALL PHONES
+======================================== */
+
+@media (max-width: 360px) {
+    .sidebar {
+        padding: 15px 12px;
+    }
+
+    .navigation {
+        gap: 4px;
+    }
+
+    .nav-link {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .main-content {
+        padding: 18px 12px;
+    }
+
+    .top-header {
+        gap: 6px;
+    }
+
+    .top-header h1 {
+        font-size: 20px;
+    }
+
+    .user-profile {
+        gap: 5px;
+        font-size: 12px;
+    }
+
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .dashboard-card {
+        padding: 14px;
+    }
+
+    .section-heading {
+        flex-wrap: wrap;
+    }
+}
