@@ -25,8 +25,15 @@ A budgeting application designed to help users organize their expenses and manag
 ### Nike Landing Page
 A sneaker e-commerce landing page concept focused on product presentation, navigation, and interactive website features.
 
+
 ### eDreams — Travel Booking UX/UI
-A travel-booking design project focused on the user experience of finding flights that fit a user's budget and travel dates.
+
+A travel-booking UX/UI project focused on helping users find flights that match their budget and travel dates.
+
+**View my Figma design:** [Open eDreams Prototype](https://embed.figma.com/design/7FkNauddsM0XnCLDxCFTIL/OBannon_340_Final?embed-host=share)
+
+[![View eDreams Figma Design](https://img.shields.io/badge/View%20Design-Figma-purple?style=for-the-badge&logo=figma)](https://www.figma.com/design/7FkNauddsM0XnCLDxCFTIL/OBannon_340_Final)
+
 
 ## Interests
 I'm interested in responsive web design, front-end development, UX/UI design, and building digital products that solve everyday problems.
