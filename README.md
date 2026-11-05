@@ -1,7 +1,7 @@
 
 # Hi, I'm Anaya O'Bannon 👋
 
-I'm a Graphic Information Technology student at Arizona State University interested in web development, UX/UI design, and creating digital experiences that are both useful and visually engaging.
+I'm a Graphic Information Technology student, currently in my senior year at Arizona State University. I'm interested in web development, UX/UI design, and creating digital experiences that are both useful and visually engaging.
 
 ## Contact Information
 - **Email:** aobannon25@gmail.com
@@ -36,6 +36,6 @@ A travel-booking UX/UI project focused on helping users find flights that match 
 
 
 ## Interests
-I'm interested in responsive web design, front-end development, UX/UI design, and building digital products that solve everyday problems.
+I'm interested in responsive web design, front-end development, UX/UI design, and building digital products that solve everyday problems. I am seeking entry-level web development opportunities.
 
 I'm continuing to develop my skills through personal projects and coursework.
