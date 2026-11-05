@@ -21,9 +21,11 @@ I'm a Graphic Information Technology student, currently in my senior year at Ari
 
 ### SPENT — Budgeting Web App
 A budgeting application designed to help users organize their expenses and manage their money through a simple interface.
+[View Source Code](https://github.com/AnayaOB25/SPENT)
 
 ### Nike Landing Page
 A sneaker e-commerce landing page concept focused on product presentation, navigation, and interactive website features.
+[View Source Code]([https://github.com/AnayaOB25/SPENT](https://github.com/AnayaOB25/Nike-Concept))
 
 
 ### eDreams — Travel Booking UX/UI
